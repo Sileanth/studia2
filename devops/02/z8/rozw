@@ -1,0 +1,8 @@
+
+
+
+sposoby na mniejsze rozmiary
++ mniejszey bazowy obraz scratch, alpine
++ multi stag build
++ łączenie komend w jedna warstwe, by nie tworzyc cache dla posrednich warstw
++ w tej samej warstwie usuwanie zbednych powstałych plików (apt-get clean, rm -rf /var/lib/apt/lists/*)

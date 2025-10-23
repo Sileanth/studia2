@@ -1,0 +1,19 @@
+
+
+
+-cpuset-cpus
+ogranicza dany obraz do konkretnego zestawu rdzeni cpu
+pozwala to zostawić część rdzeni na prace ktora nie powinna byc opozniana przez uruchamiane obrazy
+
+
+docker image ls --all 
+wyswietla lokane obrazy
+
+
+docker image history
+pokazuje warstwy obrazu
+
+
+docker image inspect
+wysietla konfiguracje metadan danego obrazu
+w szczegonlosci portym env, user, workdir, podpiete volumes
