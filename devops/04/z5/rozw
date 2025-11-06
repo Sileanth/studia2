@@ -1,0 +1,29 @@
+❯ sudo getcap -r /            
+/var/lib/docker/overlay2/61a9fe2c5b26dd1ba38163f41dd342843a687fd1ed9ce4b7838ccfeec529f172/diff/usr/bin/rcp cap_net_bind_service=ep
+/var/lib/docker/overlay2/61a9fe2c5b26dd1ba38163f41dd342843a687fd1ed9ce4b7838ccfeec529f172/diff/usr/bin/rlogin cap_net_bind_service=ep
+/var/lib/docker/overlay2/61a9fe2c5b26dd1ba38163f41dd342843a687fd1ed9ce4b7838ccfeec529f172/diff/usr/bin/rsh cap_net_bind_service=ep
+/var/lib/docker/overlay2/61a9fe2c5b26dd1ba38163f41dd342843a687fd1ed9ce4b7838ccfeec529f172/diff/usr/bin/mtr-packet cap_net_bind_service,cap_net_raw=ep
+/var/lib/docker/overlay2/17d17d530f675ce557fe85e751091d2a2ba7dbf013815fdd87311172a55345ff/diff/usr/bin/ping cap_net_raw=ep
+/run/wrappers/wrappers.ympVrEoFAG/gnome-keyring-daemon cap_setpcap,cap_ipc_lock=ep
+
+
+ CAP_NET_BIND_SERVICE
+              Bind a socket to Internet domain privileged ports (port
+              numbers less than 1024).
+
+
+CAP_NET_RAW
+      •  Use RAW and PACKET sockets;
+      •  bind to any address for transparent proxying.
+
+CAP_SETPCAP
+            If file capabilities are supported (i.e., since Linux
+            2.6.24): add any capability from the calling thread's
+            bounding set to its inheritable set; drop capabilities from
+            the bounding set (via prctl(2) PR_CAPBSET_DROP); make
+            changes to the securebits flags.
+
+CAP_IPC_LOCK
+          •  Lock memory (mlock(2), mlockall(2), mmap(2), shmctl(2));
+          •  Allocate memory using huge pages (memfd_create(2),
+             mmap(2), shmctl(2)).

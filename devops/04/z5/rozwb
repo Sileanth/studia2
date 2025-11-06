@@ -1,0 +1,17 @@
+docker run -it --rm alpine "sh"
+apk add libcap
+capsh --print
+
+
+https://0xn3va.gitbook.io/cheat-sheets/container/escaping/excessive-capabilities
+
+cap_net_raw pozwala sie podszyć pod kogolwiek. man in the middle itp
+
+CAP_SYS_CHROOT, potencjalnie pozwala uciec z chroota
+
+CAP_DAC_OVERRIDE
+              Bypass file read, write, and execute permission checks.
+              (DAC is an abbreviation of "discretionary access control"
+
+
+docker run -it --rm --cap-drop=ALL alpine sh

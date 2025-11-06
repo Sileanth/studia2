@@ -1,0 +1,21 @@
+echo $$
+ps aux
+
+
+sudo unshare --pid --fork --mount-proc bash
+echo $$
+ps aux
+
+
+
+docker run -d --name l4z3 alpine sleep infinity
+docker inspect -f '{{.State.Pid}}' l4z3
+sudo nsenter --target 59631 --pid --mount
+/bin/ps aux
+
+
+# firejail
+sudo firejail --name=fj-demo --private bash
+child pid
+sudo nsenter --target 62296 --mount 
+ls /home

@@ -1,0 +1,14 @@
+docker run --network l4z2 -it --rm --name one alpine sh
+
+docker run --network l4z2 -it --rm --name two alpine sh
+ping one
+
+defaultowa sięc to bridge(ale nie ma ustawiania hostów)
+# na moim systemie by default host nie dropuje komund
+sudo iptables -I FORWARD -i br-+ -o br-+ -j DROP
+
+
+
+docker run -it --rm --network izolacja alpine sh
+
+

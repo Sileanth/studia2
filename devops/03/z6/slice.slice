@@ -1,0 +1,7 @@
+[Unit]
+Description=Slice
+Documentation=man:systemd.slice(5)
+
+[Slice]
+MemoryMax=200M 
+CPUQuota=20%

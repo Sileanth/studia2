@@ -1,0 +1,7 @@
+[Unit]
+Description=Slice
+
+
+[Slice]
+MemoryMax=500M
+CPUQuota=20%
