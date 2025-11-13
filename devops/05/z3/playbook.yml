@@ -1,0 +1,45 @@
+---
+- name: test c++ build flags
+  hosts: docker_hosts
+  become: yes
+  gather_facts: no
+  vars:
+    app_source_dir: /tmp/app_source
+    make_vars:
+      HOST_COMPILER_FLAGS: "{{ compiler_flags }}"
+
+  tasks:
+    - name: create src folder
+      ansible.builtin.file:
+        path: "{{ app_source_dir }}"
+        state: directory
+        mode: "0755"
+
+    - name: copy src
+      ansible.builtin.copy:
+        src: "{{ item }}" 
+        dest: "{{ app_source_dir }}/"
+        mode: "0644"
+      loop:
+        - app.cpp
+        - Makefile
+
+    - name: build
+      ansible.builtin.make:
+        target: all
+        chdir: "{{ app_source_dir }}"
+        params: "{{ make_vars }}"
+
+    - name: install
+      ansible.builtin.make:
+        target: install
+        chdir: "{{ app_source_dir }}"
+
+    - name: run
+      ansible.builtin.command:
+        cmd: /usr/local/bin/my_app
+      register: app_output
+
+    - name: display
+      ansible.builtin.debug:
+        msg: "Host {{ inventory_hostname }}: Output: {{ app_output.stdout }}"

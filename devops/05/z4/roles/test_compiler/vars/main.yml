@@ -1,0 +1,4 @@
+---
+
+example_path: "/home/{{ user }}/main.cpp"
+compile_dest: "/home/{{ user }}/main"

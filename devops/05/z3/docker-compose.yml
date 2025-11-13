@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  a1:
+    build:
+      context: .
+    container_name: a1
+
+  a2:
+    build:
+      context: .
+    container_name: a2

@@ -1,0 +1,27 @@
+---
+- name: oi
+  hosts: hosts
+  become: yes
+  vars:
+    user: oi
+  roles:
+    - role: presetup
+      tags: pre
+    - role: test_compiler
+      tags: test_comp
+    - role: init_home
+      tags: init
+    - role: archive
+      tags: archive
+    - role: logs
+      tags: logs
+    - role: send_tasks
+      tags: send
+
+    
+        
+
+      
+
+        
+

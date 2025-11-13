@@ -1,0 +1,87 @@
+---
+- name: oi
+  hosts: hosts
+  vars:
+    user: oi
+    remote_catalog: "/home/{{ user }}"
+    archive_name: "{{ inventory_hostname }}_home_backup.tar.gz"
+    remote_archive_path: "/tmp/{{ archive_name }}"
+    local_archive_path: "./fetched/"
+
+
+  become: true
+
+  tasks:
+    - name: create oi user
+      tags: pre
+      ansible.builtin.user:
+        name: "{{ user }}"
+        state: present
+        shell: /bin/bash
+        create_home: true
+    - name: ensure acl
+      tags: pre
+      ansible.builtin.apt:
+        name: acl
+        state: present
+    - name: install gcc
+      tags: pre
+      ansible.builtin.apt:
+        name: g++
+        state: present
+
+
+    - name: test gcc
+      tags: test
+      become: true
+      become_user: "{{ user }}"
+      ansible.builtin.shell: |
+        echo "int main() { return 0; }" > main.cpp
+        g++ -o main main.cpp
+        rm main.cpp main
+
+
+    # zapakuj i skompresuj katalog z komputera zawodnika, a następnie pobierz go na węzeł zarządzający
+    - name: backup-archive
+      tags: backup
+      ansible.builtin.archive:
+        path: "{{ remote_catalog }}"
+        dest: "{{ remote_archive_path }}"
+        format: gz
+        remove: false
+
+    - name: backup-download
+      tags: backup
+      ansible.builtin.fetch:
+        src: "{{ remote_archive_path }}"
+        dest: "{{ local_fetch_path }}"
+        flat: true
+
+    - name: backup-cleanup
+      tags: backup
+      ansible.builtin.file:
+        path: "{{ remote_archive_path }}"
+        state: absent       
+
+    - name: home-delete
+      tags: home
+      ansible.builtin.file:
+        path: "/home/{{ user }}/"
+        state: absent
+    - name: home-extract
+      tags: home
+      vars:
+        home_archive:
+          required: true
+      ansible.builtin.unarchive:
+        src: "{{home_archive}}"
+        dest: "/home/"
+        owner: "{{user}}"
+        group: "{{user}}"
+
+        
+
+      
+
+        
+

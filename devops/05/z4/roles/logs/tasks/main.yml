@@ -1,0 +1,28 @@
+---
+
+- name: get journal
+  become: yes
+  ansible.builtin.shell: |
+    journalctl --no-pager --all
+  register: journal_output
+
+- name: copy_journal
+  become: no
+  ansible.builtin.copy:
+    content: "{{ journal_output }}"
+    dest: "{{log_dst}}{{inventory_hostname}}_journal.log"
+  delegate_to: localhost
+
+
+- name: get dmesg
+  become: yes
+  ansible.builtin.shell: |
+    dmesg
+  register: dmesg_output
+
+- name: copy_dmesg
+  become: no
+  ansible.builtin.copy:
+    content: "{{ dmesg_output.stdout }}"
+    dest: "{{ log_dst}}{{ inventory_hostname }}_dmesg.log"
+  delegate_to: localhost 

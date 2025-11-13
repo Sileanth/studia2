@@ -1,0 +1,20 @@
+mojagrupa:
+  hosts:
+    docker1:
+      ansible_host: 172.17.0.2
+      ansible_user: root
+    docker2:
+      ansible_host: 172.17.0.3
+      ansible_user: root
+grupa_b:
+  hosts:
+    docker1:
+    docker2:
+  vars:
+    zmienna_smok: b
+grupa_a:
+  hosts:
+    docker1:
+    docker2:
+  vars:
+    zmienna_smok: a

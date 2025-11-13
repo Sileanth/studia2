@@ -1,0 +1,21 @@
+---
+
+- name: ensure source_archive_path is set
+  ansible.builtin.fail:   
+    msg: |
+      ustaw zmienną source_archive_path
+  when: source_archive_path is undefined
+
+- name: cleanup
+  ansible.builtin.file:
+    path: "home/{{user}}"
+    state: absent
+
+- name: extract archive
+  ansible.builtin.unarchive:
+    src: "{{source_archive_path}}"
+    dest: "/home/{{ user }}/"
+    owner: "{{user}}"
+
+  
+  

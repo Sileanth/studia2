@@ -1,0 +1,5 @@
+---
+
+archive_src: "/home/{{user}}/"
+controller_dst: "./fetched"
+archive_path: "/archive.gz"

@@ -1,0 +1,22 @@
+---
+
+- name: ensure source_archive_path is set
+  ansible.builtin.fail:   
+    msg: |
+      ustaw zmienną source_archive_path
+  when: source_archive_path is undefined
+
+- name: create tasks folder
+  ansible.builtin.file:
+    path: "/home/{{user}}/tasks/"
+    state: directory
+    owner: "{{user}}"
+
+- name: extract archive
+  ansible.builtin.unarchive:
+    src: "{{source_archive_path}}"
+    dest: "/home/{{ user }}/tasks/"
+    owner: "{{user}}"
+
+  
+  

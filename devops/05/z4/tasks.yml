@@ -1,0 +1,32 @@
+---
+- name: Fully Modular OI Workstation Management
+  hosts: hosts
+  become: true
+  
+  vars:
+    user: oi
+    remote_catalog: "/home/{{ user }}"
+    archive_name: "{{ inventory_hostname }}_home_backup.tar.gz"
+    remote_archive_path: "/tmp/{{ archive_name }}"
+    local_fetch_path: "./fetched/" 
+
+  roles:
+    - role: prerequisites
+      tags: pre
+
+    - role: backup_fetch_home
+      tags: backup
+
+    - role: cleanup_init_home
+      tags: home_init
+      vars:
+        home_archive_file: initial_home.tar.gz 
+
+    - role: transfer_tasks_files
+      tags: task_files
+
+    - role: test_compile
+      tags: test_compile
+
+    - role: fetch_system_logs
+      tags: logs

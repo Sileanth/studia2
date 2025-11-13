@@ -1,0 +1,20 @@
+---
+
+- name: archive
+  ansible.builtin.archive:
+    path: "{{archive_src}}"
+    dest: "{{archive_path}}"
+    format: gz
+
+- name: fetch_archive
+  ansible.builtin.fetch:
+    src: "{{archive_path}}"
+    dest: "{{controller_dst}}"
+
+- name: cleanup
+  ansible.builtin.file:
+    path: "{{archive_path}}"
+    state: absent
+  
+  
+  

@@ -1,0 +1,8 @@
+---
+- name: Install required packages (acl, g++)
+  ansible.builtin.apt:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - acl
+    - g++

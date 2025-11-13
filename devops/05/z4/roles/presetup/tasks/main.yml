@@ -1,0 +1,13 @@
+---
+
+- name: Create {{ user }} system user
+  ansible.builtin.user:
+    name: "{{ user }}"
+    state: present
+    shell: /bin/bash
+    create_home: true
+
+- name: install packages
+  ansible.builtin.import_tasks:
+    file: packages.yml
+  

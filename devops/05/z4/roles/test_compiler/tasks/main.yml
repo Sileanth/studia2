@@ -1,0 +1,24 @@
+---
+
+- name: copy example file
+  become: yes
+  ansible.builtin.copy:
+    src: main.cpp
+    dest: "{{example_path}}"
+    owner: "{{ user }}"
+
+- name: test compiling
+  become: true
+  become_user: "{{ user }}"
+  ansible.builtin.shell: |
+    g++ -o {{compile_dest}} {{example_path}}
+
+- name: cleanup
+  become: yes
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: absent
+  loop:
+    - "{{ example_path }}"
+    - "{{ compile_dest }}"
+    
