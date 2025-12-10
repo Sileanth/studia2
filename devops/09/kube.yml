@@ -1,0 +1,42 @@
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: upload
+spec:
+  selector:
+    app: upload
+  type: NodePort
+  ports:
+    - name: http
+      port: 80
+      targetPort: 8080
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: upload
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: upload
+  template:
+    metadata:
+      labels:
+        app: upload
+    spec:
+      containers:
+        - image: miniserve:latest
+          name: miniserve
+          args:
+            - -u
+            - -U
+            - /mnt/baza
+          volumeMounts:
+            - name: emptydir-baza
+              mountPath: /mnt/baza
+      volumes:
+        - name: emptydir-baza
+          emptyDir:

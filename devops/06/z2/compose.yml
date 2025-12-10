@@ -1,0 +1,6 @@
+services:
+  fork:
+    container_name: fork
+    pids_limit: 15
+    build:
+      context: .
